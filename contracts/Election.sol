@@ -30,15 +30,13 @@ contract Election {
 
     function vote (uint _candidateId) public {
         // require that they haven't voted before
-        require(!voters[msg.sender], "dont vote yoursefl!!!");
+        require(!voters[msg.sender], "dont vote twice please!!!");
 
         // require a valid candidate
         require(_candidateId > 0 && _candidateId <= candidatesCount, "nu e valid");
 
-        // record that voter has voted
         voters[msg.sender] = true;
 
-        // update candidate vote Count
         candidates[_candidateId].voteCount ++;
 
         emit votedEvent(_candidateId);

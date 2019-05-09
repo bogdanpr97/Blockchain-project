@@ -11,13 +11,10 @@ App = {
   initWeb3: function() {
     console.log('init web');
 
-    // TODO: refactor conditional
     if (typeof web3 !== 'undefined') {
-      // If a web3 instance is already provided by Meta Mask.
       App.web3Provider = web3.currentProvider;
       web3 = new Web3(web3.currentProvider);
     } else {
-      // Specify default instance if no web3 instance provided
       App.web3Provider = new Web3.providers.HttpProvider(
         'http://localhost:7545'
       );
@@ -41,9 +38,6 @@ App = {
   // Listen for events emitted from the contract
   listenForEvents: function() {
     App.contracts.Election.deployed().then(function(instance) {
-      // Restart Chrome if you are unable to receive this event
-      // This is a known issue with Metamask
-      // https://github.com/MetaMask/metamask-extension/issues/2393
       instance
         .votedEvent(
           {},
